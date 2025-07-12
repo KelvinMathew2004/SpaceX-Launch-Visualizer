@@ -9,7 +9,7 @@ function App() {
   return (
     <div className='whole-page'>
       <DistortionEffect />
-      <div className='sidenav wrapper'>
+      {/* <div className='sidenav wrapper'>
         <div className="effect"></div>
         <div className="tint"></div>
         <div className="shine"></div>
@@ -21,7 +21,24 @@ function App() {
           <h2><span className="material-symbols-outlined">search</span>&nbsp;&nbsp;Search</h2>
           <h2><span className="material-symbols-outlined">info</span>&nbsp;&nbsp;About</h2>
         </div>
+      </div> */}
+
+      <div className="wrapper">
+        <div className="liquidGlass-wrapper sidenav">
+          <div className="liquidGlass-effect"></div>
+          <div className="liquidGlass-tint"></div>
+          <div className="liquidGlass-shine"></div>
+          <div className="liquidGlass-text">
+            <div className='logo'>
+              <img src={logo} alt='SpaceX Logo' />
+            </div>
+            <h2><span className="material-symbols-outlined">home</span>&nbsp;&nbsp;Dashboard</h2>
+            <h2><span className="material-symbols-outlined">search</span>&nbsp;&nbsp;Search</h2>
+            <h2><span className="material-symbols-outlined">info</span>&nbsp;&nbsp;About</h2>
+          </div>
+        </div>
       </div>
+
       <div className='content'>
         <div className='stats'>
 
