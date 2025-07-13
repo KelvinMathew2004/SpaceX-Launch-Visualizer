@@ -29,6 +29,7 @@ html, body, #root {
 .whole-page {
   display: flex;
   flex-direction: row;
+  gap: 2rem;
   height: 100%;
   width: 100%;
   padding: 2rem;
@@ -48,6 +49,7 @@ html, body, #root {
   flex-direction: row;
   justify-content: flex-start;
   margin-bottom: 4rem;
+  filter: drop-shadow(5px 5px 5px #222);
 }
 
 .logo img {
