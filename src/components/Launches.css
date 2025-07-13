@@ -1,0 +1,81 @@
+.dashboard-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    gap: 2rem;
+}
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-shrink: 0;
+}
+.stat-card {
+    width: 100%;
+    border-radius: 2rem;
+    padding: 20px;
+    flex-grow: 1;
+    text-align: center;
+}
+.stat-title {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ccc;
+}
+.stat-value {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.stat-sub-value {
+    margin: 5px 0 0 0;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+.list-container {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.table-container {
+    overflow-y: auto;
+    height: 100%;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+thead th {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.mission-patch {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+.status-success {
+    color: #4ade80;
+    font-weight: bold;
+}
+.status-failure {
+    color: #f87171;
+    font-weight: bold;
+}
