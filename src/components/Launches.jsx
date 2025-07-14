@@ -1,11 +1,14 @@
 import { useEffect, useState, useMemo } from "react";
 import './Launches.css';
-import DistortionEffect from "./DistortionEffect";
+import LiquidEffects from "./LiquidEffects.jsx";
 import StatsCard from "./StatsCard.jsx";
+import SearchBar from "./SearchBar.jsx";
 
-const Launches = ({ searchInput, filter }) => {
+const Launches = ({activeView}) => {
     const [allLaunches, setAllLaunches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [searchInput, setSearchInput] = useState('');
+    const [filter, setFilter] = useState('');
 
     useEffect(() => {
         const fetchAllLaunchesWithDetails = async () => {
@@ -87,90 +90,104 @@ const Launches = ({ searchInput, filter }) => {
 
     return (
         <div className="dashboard-content">
-            <DistortionEffect />
-            <div className="stats-container">
-                <div className="wrapper">
-                    <div className="liquidGlass-wrapper stat-card">
-                    <div className="liquidGlass-effect"></div>
-                    <div className="liquidGlass-tint"></div>
-                    <div className="liquidGlass-shine"></div>
-                        <div className="liquidGlass-text">
-                            <StatsCard title="Total Launches" value={summaryStats.totalLaunches} subValue="All missions to date" />
+            <LiquidEffects />
+            {activeView === 'dashboard' && (
+                <div className="stats-container">
+                    <div className="stat-wrapper">
+                        <div className="liquidGlass-wrapper">
+                            <div className="liquidGlass-effect"></div>
+                            <div className="liquidGlass-tint"></div>
+                            <div className="liquidGlass-shine" id="stat1-shine"></div>
+                            <div className="liquidGlass-text stat-card">
+                                <StatsCard title="Total Launches" value={summaryStats.totalLaunches} subValue="All missions to date" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="stat-wrapper">
+                        <div className="liquidGlass-wrapper">
+                            <div className="liquidGlass-effect"></div>
+                            <div className="liquidGlass-tint"></div>
+                            <div className="liquidGlass-shine" id="stat2-shine"></div>
+                            <div className="liquidGlass-text stat-card">
+                                <StatsCard title="Success Rate" value={summaryStats.successRate} subValue="Of all primary missions" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="stat-wrapper">
+                        <div className="liquidGlass-wrapper">
+                            <div className="liquidGlass-effect"></div>
+                            <div className="liquidGlass-tint"></div>
+                            <div className="liquidGlass-shine" id="stat3-shine"></div>
+                            <div className="liquidGlass-text stat-card">
+                                <StatsCard title="Boosters Landed" value={summaryStats.boosterLandings} subValue="Successful recoveries" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="wrapper">
-                    <div className="liquidGlass-wrapper stat-card">
+            )}
+            <div className="list-wrapper">
+                <div className="liquidGlass-wrapper">
                     <div className="liquidGlass-effect"></div>
                     <div className="liquidGlass-tint"></div>
-                    <div className="liquidGlass-shine"></div>
-                        <div className="liquidGlass-text">
-                            <StatsCard title="Success Rate" value={summaryStats.successRate} subValue="Of all primary missions" />
-                        </div>
-                    </div>
-                </div>
-                <div className="wrapper">
-                    <div className="liquidGlass-wrapper stat-card">
-                    <div className="liquidGlass-effect"></div>
-                    <div className="liquidGlass-tint"></div>
-                    <div className="liquidGlass-shine"></div>
-                        <div className="liquidGlass-text">
-                            <StatsCard title="Boosters Landed" value={summaryStats.boosterLandings} subValue="Successful recoveries" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="list-container">
-                {/* You would place your search bar component here */}
-                <div className="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Patch</th>
-                                <th>Mission</th>
-                                <th>Date</th>
-                                <th>Rocket</th>
-                                <th>Outcome</th>
-                                <th>Booster Landing</th>
-                                <th>Flight No.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredLaunches.length > 0 ? (
-                                filteredLaunches.map((launch) => (
-                                    <tr key={launch.id}>
-                                        <td>
-                                            <img 
-                                                src={launch.links.patch.small || 'https://placehold.co/100x100/333333/555555?text=N/A'} 
-                                                alt={`${launch.name} patch`} 
-                                                className="mission-patch"
-                                                onError={(e) => { e.currentTarget.src = 'https://placehold.co/100x100/333333/555555?text=N/A'; }}
-                                            />
-                                        </td>
-                                        <td>{launch.name}</td>
-                                        <td>{new Date(launch.date_utc).toLocaleDateString()}</td>
-                                        <td>{launch.rocket?.name || 'N/A'}</td>
-                                        <td>
-                                            <span className={launch.success ? 'status-success' : 'status-failure'}>
-                                                {launch.success ? 'Success' : 'Failure'}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <span className={launch.cores[0]?.landing_success ? 'status-success' : 'status-failure'}>
-                                                {launch.cores[0]?.landing_attempt ? (launch.cores[0].landing_success ? 'Success' : 'Failure') : 'N/A'}
-                                            </span>
-                                        </td>
-                                        <td>{launch.flight_number}</td>
+                    <div className="liquidGlass-shine" id="list-shine"></div>
+                    <div className="liquidGlass-text list-container">
+                        {activeView === 'search' && (
+                            <SearchBar 
+                                onSearchChange={setSearchInput} 
+                                onFilterChange={setFilter}
+                                activeFilter={filter}
+                            />
+                        )}
+                        <div className="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Patch</th>
+                                        <th>Mission</th>
+                                        <th>Date</th>
+                                        <th>Rocket</th>
+                                        <th>Outcome</th>
+                                        <th>Booster Landing</th>
+                                        <th>Flight No.</th>
                                     </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan="7">No launches match your criteria.</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    {filteredLaunches.length > 0 ? (
+                                        filteredLaunches.map((launch) => (
+                                            <tr key={launch.id}>
+                                                <td>
+                                                    <img 
+                                                        src={launch.links.patch.small || 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png'} 
+                                                        alt={`${launch.name} patch`} 
+                                                        className="mission-patch"
+                                                        onError={(e) => { e.currentTarget.src = 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png'; }}
+                                                    />
+                                                </td>
+                                                <td>{launch.name}</td>
+                                                <td>{new Date(launch.date_utc).toLocaleDateString()}</td>
+                                                <td>{launch.rocket?.name || 'N/A'}</td>
+                                                <td>
+                                                    <span className={launch.success ? 'status-success' : 'status-failure'}>
+                                                        {launch.success ? 'Success' : 'Failure'}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span className={launch.cores[0]?.landing_success ? 'status-success' : 'status-failure'}>
+                                                        {launch.cores[0]?.landing_attempt ? (launch.cores[0].landing_success ? 'Success' : 'Failure') : 'N/A'}
+                                                    </span>
+                                                </td>
+                                                <td>{launch.flight_number}</td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="7">No launches match your criteria.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

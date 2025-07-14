@@ -1,5 +1,5 @@
-const DistortionEffect = () => (
-<svg style={{ display: 'none' }}>
+const LiquidEffects = () => (
+  <svg style={{ display: 'none' }}>
     <filter
       id="glass-distortion"
       x="0%"
@@ -51,4 +51,4 @@ const DistortionEffect = () => (
   </svg>
 );
 
-export default DistortionEffect;
+export default LiquidEffects;
