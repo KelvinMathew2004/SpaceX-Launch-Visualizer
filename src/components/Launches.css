@@ -9,12 +9,15 @@
 }
 .stats-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 2rem;
     flex-shrink: 0;
     min-width: 100%;
 }
 .stat-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 40px 60px 40px 60px;
     flex-grow: 1;
     text-align: center;
