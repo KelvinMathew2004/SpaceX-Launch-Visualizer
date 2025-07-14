@@ -9,6 +9,7 @@ const Launches = ({activeView}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchInput, setSearchInput] = useState('');
     const [filter, setFilter] = useState('');
+    const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
         const fetchAllLaunchesWithDetails = async () => {
@@ -50,6 +51,18 @@ const Launches = ({activeView}) => {
 
         fetchAllLaunchesWithDetails();
     }, []);
+
+    useEffect(() => {
+        if (activeView === 'search') {
+            setIsAnimating(false);
+            const timer = setTimeout(() => {
+                setIsAnimating(true);
+            }, 10);
+            return () => clearTimeout(timer);
+        } else {
+            setIsAnimating(false);
+        }
+    }, [activeView]);
 
     const filteredLaunches = useMemo(() => {
         if (!allLaunches.length) return [];
@@ -125,7 +138,7 @@ const Launches = ({activeView}) => {
                     </div>
                 </div>
             )}
-            <div className="list-wrapper">
+            <div className={`list-wrapper ${isAnimating ? 'animate-expand' : ''}`}>
                 <div className="liquidGlass-wrapper">
                     <div className="liquidGlass-effect"></div>
                     <div className="liquidGlass-tint"></div>

@@ -70,10 +70,12 @@ th, td {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 thead th {
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.2);
     position: sticky;
     top: 0;
     z-index: 1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 tbody tr {
     transition: background-color 0.2s ease;
@@ -145,4 +147,16 @@ tbody tr:hover {
     background: rgba(0, 0, 0, 0.3);
     border-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes liquid-expand {
+    from {
+        transform: scale(1.03);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+.list-wrapper.animate-expand {
+    animation: liquid-expand 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
