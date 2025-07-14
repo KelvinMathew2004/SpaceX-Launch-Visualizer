@@ -12,11 +12,11 @@ function App() {
     <div className='whole-page'>
       <LiquidEffects />
       <div className="wrapper">
-        <div className="liquidGlass-wrapper sidenav">
+        <div className="liquidGlass-wrapper">
           <div className="liquidGlass-effect"></div>
           <div className="liquidGlass-tint"></div>
           <div className="liquidGlass-shine" id='sidenav-shine'></div>
-          <div className="liquidGlass-text">
+          <div className="liquidGlass-text sidenav">
             <div className='logo'>
               <img src={logo} alt='SpaceX Logo' />
             </div>
