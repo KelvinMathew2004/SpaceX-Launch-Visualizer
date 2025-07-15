@@ -11,6 +11,28 @@ const Launches = ({activeView}) => {
     const [filter, setFilter] = useState('');
     const [isAnimating, setIsAnimating] = useState(false);
 
+    const fallbackPatches = {
+        'Galaxy 33 (15R) & 34 (12R)': 'https://spacexnow.com/patches/spacex/Galaxy_33-34_thumb.png',
+        'Hotbird 13F': 'https://spacexnow.com/patches/spacex/Hotbird_13F_thumb.png',
+        'Starlink 4-36 (v1.5)': 'https://spacexnow.com/patches/spacex/Starlink-V2-Mini_thumb.png',
+        'SES-18 & SES-19': 'https://spacexnow.com/patches/spacex/SES-18-SES-19_thumb.png',
+        'Starlink 4-37 (v1.5)': 'https://spacexnow.com/patches/spacex/Starlink-V2-Mini_thumb.png',
+        'O3b mPower 1,2': 'https://spacexnow.com/patches/spacex/O3b_mPower_1-2_thumb.png',
+        'USSF-44': 'https://spacexnow.com/patches/spacex/USSF-44_thumb.png',
+        'Hotbird 13G': 'https://spacexnow.com/patches/spacex/Hotbird_13G_thumb.png',
+        'Galaxy 31 (23R) & 32 (17R)': 'https://spacexnow.com/patches/spacex/Intelsat_G-31G-32_thumb.png',
+        'Eutelsat 10B': 'https://spacexnow.com/patches/spacex/Eutelsat_10B_thumb.png',
+        'CRS-26': 'https://spacexnow.com/patches/spacex/CRS-26_thumb.png',
+        'ispace Mission 1 & Rashid': 'https://spacexnow.com/patches/Customer/HAKUTO-R_Mission_1_thumb.png',
+        'Transporter-6': 'https://spacexnow.com/patches/spacex/Transporter_6_thumb.png',
+        'Viasat-3 & Arcturus': 'https://spacexnow.com/patches/spacex/ViaSat-3_Americas__Aurora_4A_thumb.png',
+        'TTL-1': 'https://spacexnow.com/patches/spacex/Starlink-V2-Mini_thumb.png',
+        'O3b mPower 3.4': 'https://spacexnow.com/patches/spacex/O3b_mPower_3-4_thumb.png',
+        'WorldView Legion 1 & 2': 'https://spacexnow.com/patches/Customer/WorldView_Legion_1-2_thumb.png',
+        'SWOT': 'https://spacexnow.com/patches/spacex/SWOT_thumb.png',
+    };
+    const genericFallbackPatch = 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png';
+
     useEffect(() => {
         const fetchAllLaunchesWithDetails = async () => {
             try {
@@ -170,10 +192,10 @@ const Launches = ({activeView}) => {
                                             <tr key={launch.id}>
                                                 <td>
                                                     <img 
-                                                        src={launch.links.patch.small || 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png'} 
+                                                        src={launch.links.patch.small || fallbackPatches[launch.name] || genericFallbackPatch} 
                                                         alt={`${launch.name} patch`} 
-                                                        className="mission-patch"
-                                                        onError={(e) => { e.currentTarget.src = 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png'; }}
+                                                        className="mission-patch" 
+                                                        onError={(e) => { e.currentTarget.src = genericFallbackPatch; }} 
                                                     />
                                                 </td>
                                                 <td>{launch.name}</td>
