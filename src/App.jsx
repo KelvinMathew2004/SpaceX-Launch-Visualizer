@@ -22,7 +22,7 @@ function App() {
             </div>
             <h2 onClick={() => setActiveView('dashboard')}><span className="material-symbols-outlined">home</span>&nbsp;&nbsp;Dashboard</h2>
             <h2 onClick={() => setActiveView('search')}><span className="material-symbols-outlined">search</span>&nbsp;&nbsp;Search</h2>
-            <h2><span className="material-symbols-outlined">info</span>&nbsp;&nbsp;About</h2>
+            <a href="https://github.com/r-spacex/SpaceX-API/blob/master/README.md"><span className="material-symbols-outlined">info</span>&nbsp;&nbsp;About</a>
           </div>
         </div>
       </div>
