@@ -4,11 +4,9 @@ import LiquidEffects from "./LiquidEffects.jsx";
 import StatsCard from "./StatsCard.jsx";
 import SearchBar from "./SearchBar.jsx";
 
-const Launches = ({activeView}) => {
+const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterChange, timeRange, onTimeRangeChange, yearBounds }) => {    
     const [allLaunches, setAllLaunches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [searchInput, setSearchInput] = useState('');
-    const [filter, setFilter] = useState('');
     const [isAnimating, setIsAnimating] = useState(false);
 
     const fallbackPatches = {
@@ -89,21 +87,37 @@ const Launches = ({activeView}) => {
     const filteredLaunches = useMemo(() => {
         if (!allLaunches.length) return [];
         let launches = [...allLaunches];
+
+        // 1. Search filter
         if (searchInput) {
             launches = launches.filter(launch =>
                 launch.name.toLowerCase().includes(searchInput.toLowerCase()) ||
                 (launch.details && launch.details.toLowerCase().includes(searchInput.toLowerCase()))
             );
         }
-        if (filter) {
+
+        // 2. Categorical filters
+        const activeFilterKeys = Object.keys(filters).filter(key => filters[key]);
+        if (activeFilterKeys.length > 0) {
             launches = launches.filter(launch => {
-                if (filter === 'success') return launch.success === true;
-                if (filter === 'failure') return launch.success === false;
-                return true;
+                return activeFilterKeys.every(key => {
+                    if (key === 'success') return launch.success === true;
+                    if (key === 'failure') return launch.success === false;
+                    return true;
+                });
             });
         }
+        
+        // 3. Time range filter
+        if (timeRange) {
+            launches = launches.filter(launch => {
+                const year = new Date(launch.date_utc).getFullYear();
+                return year >= timeRange.min && year <= timeRange.max;
+            });
+        }
+
         return launches.sort((a, b) => new Date(b.date_utc) - new Date(a.date_utc));
-    }, [allLaunches, searchInput, filter]);
+    }, [allLaunches, searchInput, filters, timeRange]);
 
     // useMemo for calculating the summary statistics.
     const summaryStats = useMemo(() => {
@@ -168,9 +182,12 @@ const Launches = ({activeView}) => {
                     <div className="liquidGlass-text list-container">
                         {activeView === 'search' && (
                             <SearchBar 
-                                onSearchChange={setSearchInput} 
-                                onFilterChange={setFilter}
-                                activeFilter={filter}
+                                onSearchChange={onSearchChange} 
+                                onFilterChange={onFilterChange}
+                                activeFilters={filters}
+                                onTimeRangeChange={onTimeRangeChange}
+                                timeRange={timeRange}
+                                yearBounds={yearBounds}
                             />
                         )}
                         <div className="table-container">
