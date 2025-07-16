@@ -10,6 +10,20 @@ const SearchBar = ({ onSearchChange, onFilterChange, activeFilters, onTimeRangeC
         const newMax = Math.max(e.target.value, timeRange.min + 1);
         onTimeRangeChange({ ...timeRange, max: newMax });
     };
+
+    const minProgress = ((timeRange.min - yearBounds.min) / (yearBounds.max - yearBounds.min)) * 100;
+    const minSliderStyle = {
+        background: `linear-gradient(to right, rgb(219, 219, 219) ${minProgress}%, #1158db ${minProgress}%)`,
+        borderRadius: '0.5rem',
+        height: '0.5rem'
+    };
+
+    const maxProgress = ((timeRange.max - yearBounds.min) / (yearBounds.max - yearBounds.min)) * 100;
+    const maxSliderStyle = {
+        background: `linear-gradient(to right, #1158db ${maxProgress}%, rgb(219, 219, 219) ${maxProgress}%)`,
+        borderRadius: '0.5rem',
+        height: '0.5rem'
+    };
     
     return (
         <div className="search-controls">
@@ -26,8 +40,8 @@ const SearchBar = ({ onSearchChange, onFilterChange, activeFilters, onTimeRangeC
             <div className="time-range-slider">
                 <label>Launch Year: {timeRange.min} - {timeRange.max}</label>
                 <div className="slider-inputs">
-                    <input type="range" min={yearBounds.min} max={yearBounds.max} value={timeRange.min} onChange={handleMinChange} />
-                    <input type="range" min={yearBounds.min} max={yearBounds.max} value={timeRange.max} onChange={handleMaxChange} />
+                    <input type="range" min={yearBounds.min} max={yearBounds.max} value={timeRange.min} onChange={handleMinChange} style={minSliderStyle}/>
+                    <input type="range" min={yearBounds.min} max={yearBounds.max} value={timeRange.max} onChange={handleMaxChange} style={maxSliderStyle}/>
                 </div>
             </div>
         </div>
