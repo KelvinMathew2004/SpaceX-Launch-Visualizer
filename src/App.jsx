@@ -13,6 +13,10 @@ function App() {
   const [yearBounds, setYearBounds] = useState({ min: 2006, max: 2022 });
 
   const handleFilterChange = (filterKey) => {
+    if (filterKey === 'all') {
+      setFilters({});
+      return;
+    }
     setFilters(prevFilters => ({
       ...prevFilters,
       [filterKey]: !prevFilters[filterKey]

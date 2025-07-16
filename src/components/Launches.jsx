@@ -81,6 +81,11 @@ const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterCh
             return () => clearTimeout(timer);
         } else {
             setIsAnimating(false);
+            onSearchChange('');
+            if (yearBounds && yearBounds.min && yearBounds.max) {
+                onTimeRangeChange({ min: yearBounds.min, max: yearBounds.max });
+            }
+            onFilterChange('all');
         }
     }, [activeView]);
 
