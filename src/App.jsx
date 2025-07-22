@@ -27,14 +27,14 @@ function App() {
       <SideNav setActiveView={setActiveView} />
 
       <Launches 
-        activeView={activeView}
-        searchInput={searchInput}
-        onSearchChange={setSearchInput}
-        filters={filters}
-        onFilterChange={handleFilterChange}
-        timeRange={timeRange}
-        onTimeRangeChange={setTimeRange}
-        yearBounds={yearBounds}
+          activeView={activeView}
+          searchInput={searchInput}
+          onSearchChange={setSearchInput}
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          timeRange={timeRange}
+          onTimeRangeChange={setTimeRange}
+          yearBounds={yearBounds}
       />
     </div>
   )

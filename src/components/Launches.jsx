@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import './Launches.css';
 import LiquidEffects from "./LiquidEffects.jsx";
 import StatsCard from "./StatsCard.jsx";
@@ -8,6 +9,7 @@ const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterCh
     const [allLaunches, setAllLaunches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isAnimating, setIsAnimating] = useState(false);
+    const navigate = useNavigate();
 
     const fallbackPatches = {
         'Galaxy 33 (15R) & 34 (12R)': 'https://spacexnow.com/patches/spacex/Galaxy_33-34_thumb.png',
@@ -211,7 +213,7 @@ const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterCh
                                 <tbody>
                                     {filteredLaunches.length > 0 ? (
                                         filteredLaunches.map((launch) => (
-                                            <tr key={launch.id}>
+                                            <tr key={launch.id} onClick={() => navigate(`/launches/${launch.id}`)}>
                                                 <td>
                                                     <img 
                                                         src={launch.links.patch.small || fallbackPatches[launch.name] || genericFallbackPatch} 
