@@ -72,6 +72,25 @@ html, body, #root {
 }
 
 
+/* DETAIL VIEW STYLES */
+  .detail-view { color: white; padding: 2rem; }
+  .back-button { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 600; margin-bottom: 2rem; }
+  .detail-header { display: flex; gap: 2rem; align-items: center; margin-bottom: 2rem; }
+  .detail-patch { width: 150px; height: 150px; }
+  .detail-description { line-height: 1.6; }
+  .detail-links { display: flex; gap: 1rem; margin-top: 1rem; }
+  .detail-link { color: #87CEEB; text-decoration: none; font-weight: 500; }
+  .gallery { margin-top: 2rem; }
+  .gallery-images { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem; }
+  .gallery-images img { height: 150px; border-radius: 8px; }
+  .detail-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+  .detail-stat { background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; }
+  .detail-stat span:first-child { display: block; font-size: 0.9rem; color: #ccc; margin-bottom: 0.5rem; }
+  .detail-stat span:last-child { font-size: 1.2rem; font-weight: bold; }
+  .detail-tags { display: flex; gap: 0.5rem; margin-top: 1rem; }
+  .tag-reused { background-color: #3b82f6; padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.8rem; }
+
+
 /* NOT FOUND PAGE STYLING */
 
 .not-found {
