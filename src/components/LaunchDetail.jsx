@@ -48,7 +48,7 @@ const LaunchDetail = () => {
         <div className="detail-view">
             <LiquidEffects />
             <div className="detail-header">
-                <img src={launch.links.patch.large || 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png'} alt={`${launch.name} patch`} className="detail-patch" />
+                <img src={launch.links.patch.small || 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png'} alt={`${launch.name} patch`} className="detail-patch" />
                 <div>
                     <h1>{launch.name}</h1>
                     <p>{new Date(launch.date_utc).toLocaleString()}</p>

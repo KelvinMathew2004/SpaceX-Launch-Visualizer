@@ -175,12 +175,14 @@ html, body, #root {
     border-radius: 8px; 
     cursor: pointer;
     flex-shrink: 1;
-    transition: transform 0.4s ease-in-out, z-index 0.4s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   .mission-image:hover { 
-    object-fit: contain;
+    /* max-height: unset; */
     transform: scale(1.5);
+    /* position: relative;
+    object-position: bottom; */
     transform-origin: bottom;
     border-radius: 12px;
     z-index: 5;
