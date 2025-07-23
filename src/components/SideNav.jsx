@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import '../App.css'
 import logo from '../assets/logo.png'
 import './LiquidGlass.css'
@@ -9,10 +9,15 @@ function SideNav() {
 
     const [activeView, setActiveView] = useState('dashboard');
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const handleNav = (view) => {
         setActiveView(view);
         navigate('/');
+    };
+
+    const mainStyle = {
+        height: pathname.includes('/launches/') ? 'fit-content' : 'calc(100vh - 250px)',
     };
 
     return (
@@ -33,7 +38,7 @@ function SideNav() {
                 </div>
                 </div>
             </div>
-            <main style={{ display: "flex", maxWidth: "calc(100vw - 300px - 6rem)", height: "fit-content", flexGrow: 1, flexShrink: 1, position: "relative", left: "calc(300px + 2rem)" }}>
+            <main style={{ display: "flex", maxWidth: "calc(100vw - 300px - 6rem)", flexGrow: 1, flexShrink: 1, position: "relative", left: "calc(300px + 2rem)", mainStyle }}>
                 <Outlet context={{ activeView }} />
             </main>
         </div>

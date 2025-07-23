@@ -1,8 +1,10 @@
 .dashboard-content {
     display: flex;
     flex-grow: 1;
+    flex-shrink: 1;
     flex-direction: column;
     height: 100%;
+    width: 100%;
     color: #fff;
     gap: 2rem;
     text-shadow: black 0px 0px 5px;
