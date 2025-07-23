@@ -47,10 +47,6 @@ const LaunchDetail = () => {
     return (
         <div className="detail-view">
             <LiquidEffects />
-             <button onClick={() => navigate('/')} className="back-button">
-                <span className="material-symbols-outlined">arrow_back</span>&nbsp;&nbsp;
-                Back to Dashboard
-            </button>
             <div className="detail-header">
                 <img src={launch.links.patch.large || 'https://images2.imgbox.com/a9/9a/NXVkTZCE_o.png'} alt={`${launch.name} patch`} className="detail-patch" />
                 <div>

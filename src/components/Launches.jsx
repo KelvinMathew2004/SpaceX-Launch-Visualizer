@@ -1,15 +1,17 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import './Launches.css';
 import LiquidEffects from "./LiquidEffects.jsx";
 import StatsCard from "./StatsCard.jsx";
 import SearchBar from "./SearchBar.jsx";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterChange, timeRange, onTimeRangeChange, yearBounds }) => {    
+const Launches = ({ searchInput, onSearchChange, filters, onFilterChange, timeRange, onTimeRangeChange, yearBounds }) => {    
     const [allLaunches, setAllLaunches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isAnimating, setIsAnimating] = useState(false);
+    const { activeView } = useOutletContext();
     const navigate = useNavigate();
 
     const fallbackPatches = {
@@ -280,7 +282,7 @@ const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterCh
                                             <YAxis stroke="#ccc" />
                                             <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
                                             <Legend />
-                                            <Bar dataKey="Launches" fill="#FDFD96" />
+                                            <Bar dataKey="Launches" fill="#FFA756" />
                                         </BarChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -293,7 +295,7 @@ const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterCh
                                             <YAxis stroke="#ccc" />
                                             <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
                                             <Legend />
-                                            <Line type="monotone" dataKey="Recoveries" stroke="#FFA756" strokeWidth={2} />
+                                            <Line type="monotone" dataKey="Recoveries" stroke="#FDFD96" strokeWidth={2} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
