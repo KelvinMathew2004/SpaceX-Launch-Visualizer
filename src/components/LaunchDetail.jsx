@@ -134,7 +134,7 @@ const LaunchDetail = () => {
                 <div className="gallery">
                     <h3>Mission Gallery</h3>
                     <div className="gallery-images">
-                        {launch.links.flickr.original.map(url => <img key={url} src={url} alt="Launch photo" />)}
+                        {launch.links.flickr.original.map(url =>                            <img key={url} src={url} alt="Launch photo" className='mission-image'/>)}
                     </div>
                 </div>
             )}

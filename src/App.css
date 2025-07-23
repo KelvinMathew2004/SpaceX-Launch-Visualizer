@@ -154,20 +154,32 @@ html, body, #root {
   }
   .gallery-images { 
     display: flex; 
-    gap: 1rem; 
+    gap: 1.25%; 
     flex-wrap: wrap;
     padding-bottom: 1rem; 
   }
-  .gallery-images img { 
-    height: 150px; 
+  .mission-image { 
+    width: 19%;
+    max-height: 20vh;
+    object-fit: cover;
     border-radius: 8px; 
-    transition: transform 0.5s ease-in-out, z-index 0.5s ease-in-out;
+    cursor: pointer;
+    flex-shrink: 1;
+    transition: transform 0.4s ease-in-out, z-index 0.4s ease-in-out;
   }
-  .gallery-images img:hover { 
-    z-index: 5;
+  .mission-image:hover { 
     transform: scale(1.5);
+    transform-origin: bottom;
+    border-radius: 12px;
+    z-index: 5;
   }
-  body:has(.gallery-images img:hover)::before {
+  .mission-image:nth-child(5n+1):hover {
+    transform-origin: bottom left;
+  }
+  .mission-image:nth-child(5n):hover {
+    transform-origin: bottom right;
+  }
+  body:has(.mission-image:hover)::before {
     opacity: 1;
   }
 
