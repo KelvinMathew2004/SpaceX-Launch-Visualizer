@@ -4,6 +4,7 @@ import './Launches.css';
 import LiquidEffects from "./LiquidEffects.jsx";
 import StatsCard from "./StatsCard.jsx";
 import SearchBar from "./SearchBar.jsx";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterChange, timeRange, onTimeRangeChange, yearBounds }) => {    
     const [allLaunches, setAllLaunches] = useState([]);
@@ -139,6 +140,28 @@ const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterCh
         return { totalLaunches, successRate, boosterLandings };
     }, [allLaunches]);
 
+    const chartData = useMemo(() => {
+        if (!allLaunches.length) return { launchesByYear: [], recoveriesByYear: [] };
+
+        const yearlyData = allLaunches.reduce((acc, launch) => {
+            const year = new Date(launch.date_utc).getFullYear();
+            if (!acc[year]) {
+                acc[year] = { year, launches: 0, recoveries: 0 };
+            }
+            acc[year].launches++;
+            if (launch.cores[0]?.landing_success) {
+                acc[year].recoveries++;
+            }
+            return acc;
+        }, {});
+
+        const sortedData = Object.values(yearlyData).sort((a, b) => a.year - b.year);
+        return {
+            launchesByYear: sortedData.map(d => ({ year: d.year, Launches: d.launches })),
+            recoveriesByYear: sortedData.map(d => ({ year: d.year, Recoveries: d.recoveries })),
+        };
+    }, [allLaunches]);
+
 
     if (isLoading) {
         return <div style={{color: 'white', fontSize: '1.2rem'}}>Loading missions...</div>;
@@ -246,6 +269,36 @@ const Launches = ({ activeView, searchInput, onSearchChange, filters, onFilterCh
                                 </tbody>
                             </table>
                         </div>
+                        {activeView === 'dashboard' && (
+                            <div className="charts-container">
+                                <div className="chart-wrapper">
+                                    <h4>Launches Per Year</h4>
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <BarChart data={chartData.launchesByYear} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
+                                            <XAxis dataKey="year" stroke="#ccc" />
+                                            <YAxis stroke="#ccc" />
+                                            <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
+                                            <Legend />
+                                            <Bar dataKey="Launches" fill="#FDFD96" />
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </div>
+                                <div className="chart-wrapper">
+                                    <h4>Booster Recovery Trend</h4>
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <LineChart data={chartData.recoveriesByYear} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
+                                            <XAxis dataKey="year" stroke="#ccc" />
+                                            <YAxis stroke="#ccc" />
+                                            <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
+                                            <Legend />
+                                            <Line type="monotone" dataKey="Recoveries" stroke="#FFA756" strokeWidth={2} />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

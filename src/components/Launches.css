@@ -56,6 +56,11 @@
     z-index: 1;
     pointer-events: all;
 }
+.list-container:has(.charts-container) {
+  flex-direction: row;
+  align-items: space-between;
+  gap: 20px;
+}
 .table-container {
     display: flex;
     overflow-y: auto;
@@ -171,6 +176,26 @@ tbody tr:hover {
     background: rgba(0, 0, 0, 0.3);
     border-color: rgba(255, 255, 255, 0.4);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* CHARTS STYLING */
+.charts-container {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+.chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+.chart-wrapper h4 {
+  margin-top: 0;
+  text-align: center;
 }
 
 /* TIME RANGE SLIDER STYLES */
