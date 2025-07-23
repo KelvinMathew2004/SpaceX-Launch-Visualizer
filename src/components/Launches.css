@@ -193,11 +193,75 @@ tbody tr:hover {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  width: 100%;
   height: 100%;
 }
 .chart-wrapper h4 {
   margin-top: 0;
   text-align: center;
+}
+
+/* CHARTS TOGGLE STYLING */
+
+.charts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-toggle {
+    position: relative;
+    display: flex;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 50px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-toggle::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: var(--bubble-left, 5px);
+    width: var(--bubble-width, 0px);
+    height: calc(100% - 10px);
+    background-color: rgba(200, 200, 200, 0.1);
+    border-radius: 50px;
+    z-index: 1;
+    transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 
+                0 6px 20px rgba(0, 0, 0, 0.1); */
+}
+
+.chart-toggle.switching::before {
+    box-shadow: 
+        inset -10px -8px 0px -11px rgba(255, 255, 255, 0.5),
+        inset 0px -9px 0px -8px rgba(255, 255, 255, 0.5),
+        inset 10px 8px 0px -11px rgba(255, 255, 255, 0.3),
+        inset 0px 9px 0px -8px rgba(255, 255, 255, 0.3),
+
+        0 0 10px 2px rgba(255, 255, 255, 0.05),
+        0 0 25px 5px rgba(255, 255, 255, 0.025);
+    transform: scale(1.05, 1.5);
+    border-radius: 50px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    position: relative;
+    z-index: 2;
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.4s ease;
+}
+
+.toggle-btn.active {
+    color: #00fbff;
 }
 
 /* TIME RANGE SLIDER STYLES */

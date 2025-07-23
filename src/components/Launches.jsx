@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 import './Launches.css';
@@ -11,6 +11,9 @@ const Launches = ({ searchInput, onSearchChange, filters, onFilterChange, timeRa
     const [allLaunches, setAllLaunches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [chartView, setChartView] = useState('launches');
+    const isInitialMount = useRef(true);
+    const chartToggleRef = useRef(null);
     const { activeView } = useOutletContext();
     const navigate = useNavigate();
 
@@ -164,6 +167,32 @@ const Launches = ({ searchInput, onSearchChange, filters, onFilterChange, timeRa
         };
     }, [allLaunches]);
 
+    useEffect(() => {
+        if (!isLoading && activeView === 'dashboard' && chartToggleRef.current) {
+            const activeButton = chartToggleRef.current.querySelector('.toggle-btn.active');
+            const container = chartToggleRef.current;
+
+            if (activeButton && container) {
+                const { offsetLeft, offsetWidth } = activeButton;
+
+                if (!isInitialMount.current) {
+                    container.classList.add('switching');
+                }
+
+                container.style.setProperty('--bubble-left', `${offsetLeft}px`);
+                container.style.setProperty('--bubble-width', `${offsetWidth}px`);
+
+                isInitialMount.current = false;
+
+                const timer = setTimeout(() => {
+                    container.classList.remove('switching');
+                }, 400);
+
+                return () => clearTimeout(timer);
+            }
+        }
+    }, [chartView, isLoading, activeView]);
+
 
     if (isLoading) {
         return <div style={{color: 'white', fontSize: '1.2rem'}}>Loading missions...</div>;
@@ -273,32 +302,50 @@ const Launches = ({ searchInput, onSearchChange, filters, onFilterChange, timeRa
                         </div>
                         {activeView === 'dashboard' && (
                             <div className="charts-container">
-                                <div className="chart-wrapper">
-                                    <h4>Launches Per Year</h4>
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={chartData.launchesByYear} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
-                                            <XAxis dataKey="year" stroke="#ccc" />
-                                            <YAxis stroke="#ccc" />
-                                            <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
-                                            <Legend />
-                                            <Bar dataKey="Launches" fill="#FFA756" />
-                                        </BarChart>
-                                    </ResponsiveContainer>
+                                <div className="chart-toggle" ref={chartToggleRef}>
+                                    <button
+                                        className={`toggle-btn ${chartView === 'launches' ? 'active' : ''}`}
+                                        onClick={() => setChartView('launches')}
+                                    >
+                                        Launches
+                                    </button>
+                                    <button
+                                        className={`toggle-btn ${chartView === 'boosters' ? 'active' : ''}`}
+                                        onClick={() => setChartView('boosters')}
+                                    >
+                                        Boosters
+                                    </button>
                                 </div>
-                                <div className="chart-wrapper">
-                                    <h4>Booster Recovery Trend</h4>
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <LineChart data={chartData.recoveriesByYear} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
-                                            <XAxis dataKey="year" stroke="#ccc" />
-                                            <YAxis stroke="#ccc" />
-                                            <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
-                                            <Legend />
-                                            <Line type="monotone" dataKey="Recoveries" stroke="#FDFD96" strokeWidth={2} />
-                                        </LineChart>
-                                    </ResponsiveContainer>
-                                </div>
+                                {chartView === 'launches' && (
+                                    <div className="chart-wrapper">
+                                        <h4>Launches Per Year</h4>
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <BarChart data={chartData.launchesByYear} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
+                                                <XAxis dataKey="year" stroke="#ccc" />
+                                                <YAxis stroke="#ccc" />
+                                                <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
+                                                <Legend />
+                                                <Bar dataKey="Launches" fill="#FFA756" />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                )}
+                                {chartView === 'boosters' && (
+                                    <div className="chart-wrapper">
+                                        <h4>Booster Recovery Trend</h4>
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <LineChart data={chartData.recoveriesByYear} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.2)" />
+                                                <XAxis dataKey="year" stroke="#ccc" />
+                                                <YAxis stroke="#ccc" />
+                                                <Tooltip contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: "0.5rem", backdropFilter: "blur(10px)" }} />
+                                                <Legend />
+                                                <Line type="monotone" dataKey="Recoveries" stroke="#FDFD96" strokeWidth={2} />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                )}
                             </div>
                         )}
                     </div>
