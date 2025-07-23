@@ -256,7 +256,7 @@ const Launches = ({ searchInput, onSearchChange, filters, onFilterChange, timeRa
                                 <thead>
                                     <tr>
                                         <th>Patch</th>
-                                        <th>Mission</th>
+                                        <th className="mission-column">Mission</th>
                                         <th>Date</th>
                                         <th>Rocket</th>
                                         <th>Outcome</th>
