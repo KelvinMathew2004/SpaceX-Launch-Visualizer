@@ -46,7 +46,7 @@ GIF created with ...
 
 ## Notes
 
-Other than the liquid glass effects, creating the filters was bit challenging.
+Other than the liquid glass effects, making sure the sticky sidenav was in every page was difficult.
 
 ## License
 
