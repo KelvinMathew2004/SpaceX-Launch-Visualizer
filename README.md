@@ -1,54 +1,46 @@
-# Web Development Project 6 - *SpaceX Launch Visualizer*
+# 🚀 SpaceX Launch Visualizer
 
-Submitted by: **Kelvin Mathew**
+**Description:**  
+SpaceX Launch Visualizer is a dynamic React web app that brings SpaceX launch data to life. Fetching real-time information from the public SpaceX v5 API, the app presents it in a sleek, interactive interface with a playful "liquid glass" aesthetic. Users can explore the complete history of SpaceX launches through a detailed, filterable list, view launch statistics at a glance, dive into detailed launch pages, and uncover insights through interactive charts.
 
-This web app: **This project is a dynamic and interactive web application that visualizes launch data for SpaceX missions. Built with React, it fetches real-time information from the public SpaceX v5 API and presents it in a sleek, modern interface featuring a "liquid glass" aesthetic. The dashboard provides an at-a-glance summary of key statistics and allows users to explore the complete history of SpaceX launches through a detailed, filterable list.**
+---
 
-Time spent: **10** hours spent in total
+## 🌟 Features
 
-## Required Features
+### 📊 Dashboard & Data Interaction
+- **Dashboard with launch list:** Displays hundreds of unique launches with multiple attributes per row.
+- **Search bar:** Filter launches dynamically by name.
+- **Filters:** Restrict displayed launches by category or attribute, supporting multiple simultaneous filters and different input types (text, slider, buttons).
+- **Summary statistics:** View at-a-glance key metrics about launches, including counts, success rates, and more.
 
-The following **required** functionality is completed:
+### 🛰️ Detail Views
+- **Clickable items:** Navigate from the dashboard to detailed views for each launch.
+- **Unique URLs:** Each launch detail page has a direct, shareable link.
+- **Extra information:** Detailed view includes additional data not shown in the dashboard, such as the launch livestream.
+- **Sticky sidebar:** Same sidebar as dashboard visible in detail view for consistent navigation.
 
-- [x] **Clicking on an item in the list view displays more details about it**
-  - Clicking on an item in the dashboard list navigates to a detail view for that item
-  - Detail view includes extra information about the item not included in the dashboard view
-  - The same sidebar is displayed in detail view as in dashboard view
-  - *To ensure an accurate grade, your sidebar **must** be viewable when showing the details view in your recording.*
-- [x] **Each detail view of an item has a direct, unique URL link to that item’s detail view page**
-  - *To ensure an accurate grade, the URL/address bar of your web browser **must** be viewable in your recording.*
-- [x] **The app includes at least two unique charts developed using the fetched data that tell an interesting story**
-  - At least two charts should be incorporated into the dashboard view of the site
-  - Each chart should describe a different aspect of the dataset
+### 📈 Visualizations & Media
+- **Interactive charts:** Two charts provide insights into the dataset, highlighting different aspects of SpaceX launches.
+- **Toggle visualizations:** Users can switch between chart views.
+- **Mini lightbox:** View launch images in a compact gallery overlay.
 
+### 🎨 Styling & UX
+- **Liquid glass theme:** Apple-inspired styling applied across containers, buttons, sliders, toggle bar, and scrollbar.
+- **Responsive and smooth:** Works well on multiple screen sizes, with smooth scrolling and intuitive navigation.
+- **Dynamic updates:** Dashboard and charts update in real-time as search or filter inputs change.
 
-The following **optional** features are implemented:
+---
 
-- [x] The site’s customized dashboard contains more content that explains what is interesting about the data 
-  - An additional description
-- [x] The site allows users to toggle between different data visualizations
-  - User should be able to use some mechanism to toggle between displaying and hiding visualizations 
+## 🎥 Walkthrough
 
-  
-The following **additional** features are implemented:
+Check out the walkthrough of features in action:
 
-* [x] Added Apple's Liquid Glass styling theme to the toggle bar and the scrollbar
-* [x] Added a mini lightbox for the image gallery
+![Video Walkthrough](./Walkthrough.gif)  
+GIF created with [Kap](https://getkap.co/) for macOS
 
-## Video Walkthrough
+---
 
-Here's a walkthrough of implemented features:
-
-<img src='Walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with ...  
-[Kap](https://getkap.co/) for macOS
-
-## Notes
-
-Other than the liquid glass effects, making sure the sticky sidenav was in every page was difficult.
-
-## License
+## ⚖️ License
 
     Copyright [2025] [Kelvin Mathew]
 
